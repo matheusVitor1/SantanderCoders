@@ -19,7 +19,7 @@ public class ex3 {
     }
 
     public static int[] sortDescending(int[] numbers) {
-        Arrays.sort(numbers);  
+
         int n = numbers.length;
         int[] sortedNumbers = new int[n];        
         int index = 0;
@@ -36,6 +36,6 @@ public class ex3 {
         int[] numbers = {5, 4, 1, 2, 3};
         System.out.println(Arrays.toString(numbers));
         System.out.println(Arrays.toString(sortAscending(numbers)));
-        System.out.println(Arrays.toString(sortDescending(numbers)));
+        System.out.println(Arrays.toString(sortDescending(sortAscending(numbers))));
     }
 }
