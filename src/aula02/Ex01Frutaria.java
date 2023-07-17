@@ -1,5 +1,7 @@
+package aula02;
+
 import java.util.Scanner;
-public class ex2 {
+public class Ex01Frutaria {
 
     /* Maria tem uma frutaria e está com ma promoção para quem comprar mais de 1- frutas do mesmo item. a tabela de preços das frutas com preços especiais são:
 
