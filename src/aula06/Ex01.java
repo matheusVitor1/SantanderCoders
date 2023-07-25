@@ -5,7 +5,15 @@ import java.util.Locale;
 public class Ex01 {
 
     public enum Estado{
-        MG, SP, RJ
+        MG(0.07), SP(0.12), RJ(0.15);
+        private double taxa;
+        Estado(double taxa){
+          this.taxa = taxa;
+        }
+        public double getTaxa(){
+            return taxa;
+        }
+
     }
     public static void main(String[] args) {
 
@@ -15,25 +23,7 @@ public class Ex01 {
     }
 
     public static double valorProdutoFinal(double valorProduto, Estado estado) {
-        double taxaImposto = 0.0;
-
-        switch (estado) {
-            case MG:
-                taxaImposto = 0.07; // 7%
-                break;
-            case SP:
-                taxaImposto = 0.12; // 12%
-                break;
-            case RJ:
-                taxaImposto = 0.15; // 15%
-                break;
-            default:
-                System.out.println("Estado inválido.");
-                return 0.0;
-        }
-
-        double precoFinal = valorProduto * (1 + taxaImposto);
-        return arredondar(precoFinal);
+        return arredondar(valorProduto * (1.0 + estado.getTaxa()));
     }
 
     public static double arredondar(double numero) {
