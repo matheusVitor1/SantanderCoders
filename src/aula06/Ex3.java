@@ -33,7 +33,7 @@ public class Ex3 {
                 }
             }
 
-            throw new IllegalArgumentException("Dia " + nome + " informado é inválido");
+            throw new IllegalArgumentException(nome + " informado é inválido");
         }
 
         public static void main(String[] args) {

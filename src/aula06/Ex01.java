@@ -8,7 +8,7 @@ public class Ex01 {
         MG(0.07), SP(0.12), RJ(0.15);
         private double taxa;
         Estado(double taxa){
-          this.taxa = taxa;
+            this.taxa = taxa;
         }
         public double getTaxa(){
             return taxa;
