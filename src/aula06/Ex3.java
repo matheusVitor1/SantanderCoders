@@ -2,37 +2,49 @@ package aula06;
 
 public class Ex3 {
     public enum Semana {
-        DOMINGO,
-        SEGUNDA,
-        TERCA,
-        QUARTA,
-        QUINTA,
-        SEXTA,
-        SABADO;
-        public static Semana fromString(String nomeDia) {
-            if (nomeDia == null) {
-                throw new IllegalArgumentException("O nome do dia não pode ser nulo.");
-            }
+        DOMINGO("domingo", 1),
+        SEGUNDA("segunda-feira", 2),
+        TERCA("terça-feira", 3),
+        QUARTA("quarta-feira", 4),
+        QUINTA("quinta-feira", 5),
+        SEXTA("sexta-feira", 6),
+        SABADO("sábado", 7);
 
-            String nomeDiaFormatado = nomeDia.trim().toUpperCase().replace("-", "_");
+        final String nome;
+        final int dia;
 
-            for (Semana diaEnum : Semana.values()) {
-                if (diaEnum.name().equals(nomeDiaFormatado)) {
-                    return diaEnum;
+        Semana(String nome, int dia) {
+            this.nome = nome;
+            this.dia = dia;
+        }
+
+        public String getNome() {
+            return nome;
+        }
+
+        public int getDia() {
+            return dia;
+        }
+
+        public static Semana stringParaEnum(String nome) {
+            for (Semana dia : Semana.values()) {
+                if (dia.getNome().equalsIgnoreCase(nome)) {
+                    return dia;
                 }
             }
 
-            throw new IllegalArgumentException("Nome de dia inválido: " + nomeDia);
+            throw new IllegalArgumentException("Dia " + nome + " informado é inválido");
         }
 
+        public static void main(String[] args) {
+            String nomeDia = "terça-feira";
+            Semana diaEnum = Semana.stringParaEnum(nomeDia);
+
+            System.out.println("Dia: " + diaEnum.getNome());
+            System.out.println("Número do Dia: " + diaEnum.getDia());
+        }
     }
 
-
-    public static void main(String[] args) {
-        String nomeDia = "terça-feira";
-        Semana diaEnum = Semana.fromString(nomeDia);
-        System.out.println("Enum correspondente ao dia: " + diaEnum);
-    }
 
 
 
