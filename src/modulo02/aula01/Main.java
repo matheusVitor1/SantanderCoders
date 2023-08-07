@@ -1,6 +1,5 @@
 package modulo02.aula01;
 
-
     public class Main {
         public static void main(String[] args) {
             Contato contato1 = new Contato("João", "123456789");
@@ -28,7 +27,7 @@ package modulo02.aula01;
             if (contatoDeletado != null) {
                 System.out.println("Contato encontrado: " + contatoDeletado.getNome());
             } else {
-                System.out.println("Contato não encontrado");
+                System.out.println("Contato deletado ") ;
             }
         }
     }
