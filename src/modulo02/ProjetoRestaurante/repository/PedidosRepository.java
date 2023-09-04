@@ -1,6 +1,6 @@
-package modulo02.aula04.Repository;
+package modulo02.ProjetoRestaurante.Repository;
 
-import modulo02.aula04.Entidades.Pedidos;
+import modulo02.ProjetoRestaurante.Entidades.Pedidos;
 
 import java.util.ArrayList;
 import java.util.List;

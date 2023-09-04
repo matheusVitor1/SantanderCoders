@@ -1,7 +1,7 @@
-package modulo02.aula04.Services;
+package modulo02.ProjetoRestaurante.Services;
 
-import modulo02.aula04.Entidades.Cliente;
-import modulo02.aula04.Repository.ClienteRepository;
+import modulo02.ProjetoRestaurante.Entidades.Cliente;
+import modulo02.ProjetoRestaurante.Repository.ClienteRepository;
 
 public class ClienteService {
     private ClienteRepository clienteRepository;

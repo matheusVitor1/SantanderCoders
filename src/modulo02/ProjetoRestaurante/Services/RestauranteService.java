@@ -1,8 +1,8 @@
-package modulo02.aula04.Services;
+package modulo02.ProjetoRestaurante.Services;
 
-import modulo02.aula04.Entidades.Pratos;
-import modulo02.aula04.Entidades.Restaurante;
-import modulo02.aula04.Repository.RestauranteRepository;
+import modulo02.ProjetoRestaurante.Entidades.Pratos;
+import modulo02.ProjetoRestaurante.Entidades.Restaurante;
+import modulo02.ProjetoRestaurante.Repository.RestauranteRepository;
 
 import java.util.List;
 import java.util.ArrayList;

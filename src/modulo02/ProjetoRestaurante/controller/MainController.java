@@ -1,16 +1,16 @@
-package modulo02.aula04.Controller;
+package modulo02.ProjetoRestaurante.Controller;
 
-import modulo02.aula04.Entidades.Cliente;
-import modulo02.aula04.Entidades.Pratos;
-import modulo02.aula04.Entidades.Restaurante;
-import modulo02.aula04.Entidades.Pedidos;
-import modulo02.aula04.Repository.PedidosRepository;
-import modulo02.aula04.Repository.ClienteRepository;
+import modulo02.ProjetoRestaurante.Entidades.Cliente;
+import modulo02.ProjetoRestaurante.Entidades.Pratos;
+import modulo02.ProjetoRestaurante.Entidades.Restaurante;
+import modulo02.ProjetoRestaurante.Entidades.Pedidos;
+import modulo02.ProjetoRestaurante.Repository.PedidosRepository;
+import modulo02.ProjetoRestaurante.Repository.ClienteRepository;
 
 
-import modulo02.aula04.Services.PedidosService;
-import modulo02.aula04.Services.RestauranteService;
-import modulo02.aula04.Services.ClienteService;
+import modulo02.ProjetoRestaurante.Services.PedidosService;
+import modulo02.ProjetoRestaurante.Services.RestauranteService;
+import modulo02.ProjetoRestaurante.Services.ClienteService;
 
 
 import java.util.List;

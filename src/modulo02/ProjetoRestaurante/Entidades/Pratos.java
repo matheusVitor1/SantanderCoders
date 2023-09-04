@@ -1,4 +1,4 @@
-package modulo02.aula04.Entidades;
+package modulo02.ProjetoRestaurante.Entidades;
 
 public class Pratos {
 
