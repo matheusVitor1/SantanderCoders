@@ -2,7 +2,6 @@ package modulo03.ProjetoLocadora.Entidades.Locadora;
 
 import modulo03.ProjetoLocadora.Entidades.Pessoas.Pessoa;
 import modulo03.ProjetoLocadora.Entidades.Veiculos.Veiculo;
-import modulo03.ProjetoLocadora.Service.Interfaces.AluguelVeiculoInterface;
 
 import java.time.LocalDateTime;
 
