@@ -1,4 +1,4 @@
-package modulo02.ProjetoRestaurante.Controller;
+package modulo02.ProjetoRestaurante.controller;
 
 import modulo02.ProjetoRestaurante.Entidades.Cliente;
 import modulo02.ProjetoRestaurante.Entidades.Pratos;

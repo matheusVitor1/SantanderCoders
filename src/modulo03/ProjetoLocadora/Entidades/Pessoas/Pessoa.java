@@ -1,6 +1,6 @@
 package modulo03.ProjetoLocadora.Entidades.Pessoas;
 
-abstract class Pessoa {
+public abstract class Pessoa {
 
     private int idade;
     private String nome;

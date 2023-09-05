@@ -2,7 +2,7 @@ package modulo03.ProjetoLocadora.Entidades.Veiculos;
 
 import java.math.BigDecimal;
 
-abstract class Veiculo {
+public abstract class Veiculo {
     private String nome;
     private String modelo;
     private String placa;
