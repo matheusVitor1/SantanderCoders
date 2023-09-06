@@ -6,14 +6,14 @@ public abstract class Veiculo {
     private String nome;
     private String modelo;
     private String placa;
-    private BigDecimal precoAluguel;
+    private BigDecimal precoAluguelPorDia;
     private boolean isAlugado;
 
-    public Veiculo (String nome, String modelo, String placa, BigDecimal precoAluguel, boolean isAlugado){
+    public Veiculo (String nome, String modelo, String placa, BigDecimal precoAluguelPorDia, boolean isAlugado){
         this.nome = nome;
         this.modelo = modelo;
         this.placa = placa;
-        this.precoAluguel = precoAluguel;
+        this.precoAluguelPorDia = precoAluguelPorDia;
         this.isAlugado = isAlugado;
     }
     public String getNome() {
@@ -40,12 +40,12 @@ public abstract class Veiculo {
         this.placa = placa;
     }
 
-    public BigDecimal getPrecoAluguel() {
-        return precoAluguel;
+    public BigDecimal getPrecoAluguelPorDia() {
+        return precoAluguelPorDia;
     }
 
-    public void setPrecoAluguel(BigDecimal precoAluguel) {
-        this.precoAluguel = precoAluguel;
+    public void setPrecoAluguelPorDia(BigDecimal precoAluguel) {
+        this.precoAluguelPorDia = precoAluguel;
     }
 
     public boolean isAlugado() {
@@ -56,11 +56,7 @@ public abstract class Veiculo {
         isAlugado = alugado;
     }
 
-    public void alugar() {
 
-    }
 
-    public void devolver() {
 
-    }
 }

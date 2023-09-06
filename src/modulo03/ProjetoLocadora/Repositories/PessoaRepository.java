@@ -1,6 +1,7 @@
 package modulo03.ProjetoLocadora.Repositories;
 
 import modulo03.ProjetoLocadora.Entidades.Pessoas.Funcionario;
+import modulo03.ProjetoLocadora.Entidades.Pessoas.Pessoa;
 import modulo03.ProjetoLocadora.Entidades.Pessoas.PessoaFisica;
 import modulo03.ProjetoLocadora.Entidades.Pessoas.PessoaJuridica;
 import modulo03.ProjetoLocadora.Entidades.Veiculos.Carro;
@@ -10,94 +11,37 @@ import java.util.*;
 import java.util.Iterator;
 
 public class PessoaRepository {
-    private List<PessoaJuridica> pessoaJuridica;
-    private List<PessoaFisica> pessoaFisica;
-    private List<Funcionario> funcionarios;
+    private List<Pessoa> pessoas;
 
-    public PessoaRepository (){
-        this.pessoaJuridica = new ArrayList<>();
-        this.pessoaFisica = new ArrayList<>();
-        this.funcionarios = new ArrayList<>();
+    public PessoaRepository() {
+        this.pessoas = new ArrayList<>();
     }
 
-    public void cadastrarPJ(PessoaJuridica pessoaJuridica){
-        this.pessoaJuridica.add(pessoaJuridica);
-    }
-    public void cadastrarPF(PessoaFisica pessoaFisica){
-        this.pessoaFisica.add(pessoaFisica);
+    public void salvarPessoa(Pessoa pessoa) {
+        this.pessoas.add(pessoa);
     }
 
-    public void cadastrarFuncionario(Funcionario funcionario){
-        this.funcionarios.add(funcionario);
+    public void removerPessoa(Pessoa pessoa) {
+        this.pessoas.remove(pessoa);
     }
 
-    public void removerPJ(PessoaJuridica pessoaJuridica) {
-        Iterator<PessoaJuridica> iterator = this.pessoaJuridica.iterator();
-        while (iterator.hasNext()) {
-            PessoaJuridica atual = iterator.next();
-            if (atual.getNome().equalsIgnoreCase(pessoaJuridica.getNome())) {
-                iterator.remove();
-                return;
-            }
-        }
-    }
-
-    public void removerPF(PessoaFisica pessoaFisica) {
-        Iterator<PessoaFisica> iterator = this.pessoaFisica.iterator();
-        while (iterator.hasNext()) {
-            PessoaFisica atual = iterator.next();
-            if (atual.getNome().equalsIgnoreCase(pessoaFisica.getNome())) {
-                iterator.remove();
-                return;
-            }
-        }
-    }
-    public void removerFuncionario(Funcionario funcionario) {
-        Iterator<Funcionario> iterator = this.funcionarios.iterator();
-        while (iterator.hasNext()) {
-            Funcionario atual = iterator.next();
-            if (atual.getNome().equalsIgnoreCase(funcionario.getNome())) {
-                iterator.remove();
-                return;
-            }
-        }
-    }
-
-    public List<PessoaJuridica> listarPJ() {
-        return Collections.unmodifiableList(pessoaJuridica);
-    }
-    public List<PessoaFisica> listarPF() {
-        return Collections.unmodifiableList(pessoaFisica);
-    }
-
-    public List<Funcionario> listarFuncionarips() {
-        return Collections.unmodifiableList(funcionarios);
-    }
-
-    public PessoaJuridica buscarPJ(String cnpj) {
-        for (PessoaJuridica pj : pessoaJuridica) {
-            if (pj.getCnpj().equalsIgnoreCase(cnpj)) {
-                return pj;
+    public Pessoa buscarPessoaPorIdentidade(String identidade) {
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa.getIdentidade().equalsIgnoreCase(identidade)) {
+                return pessoa;
             }
         }
         return null;
     }
 
-    public PessoaFisica buscarPF(String cpf) {
-        for (PessoaFisica pf : pessoaFisica) {
-            if (pf.getCpf().equalsIgnoreCase(cpf)) {
-                return pf;
-            }
+    public boolean editarPessoa(String nome, String identidade, String endereco) {
+        Pessoa pessoa = buscarPessoaPorIdentidade(identidade);
+        if (pessoa != null) {
+            pessoa.setNome(nome);
+            pessoa.setEndereco(endereco);
+            return true;
         }
-        return null;
-    }
-
-    public Funcionario buscarFuncionario(String identidade) {
-        for (Funcionario func : funcionarios) {
-            if (func.getIdentidade().equalsIgnoreCase(identidade)) {
-                return func;
-            }
-        }
-        return null;
+        return false;
     }
 }
+
