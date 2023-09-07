@@ -1,7 +1,6 @@
 package modulo03.ProjetoLocadora.Services.impl;
 
 import modulo03.ProjetoLocadora.Entidades.Veiculos.Carro;
-import modulo03.ProjetoLocadora.Entidades.Veiculos.Moto;
 import modulo03.ProjetoLocadora.Entidades.Veiculos.Veiculo;
 import modulo03.ProjetoLocadora.Repositories.VeiculoRepository;
 import modulo03.ProjetoLocadora.Services.Contracts.VeiculoService;
@@ -52,11 +51,20 @@ public class VeiculoServiceImpl implements VeiculoService {
     }
 
     @Override
+    public BigDecimal definirPrecoDiariaCarro(String porte) {
+        if (porte.equalsIgnoreCase("pequeno")){
+            return BigDecimal.valueOf(100);
+        } else if (porte.equalsIgnoreCase("medio")){
+            return BigDecimal.valueOf(150);
+        } else if (porte.equalsIgnoreCase("suv")){
+            return BigDecimal.valueOf(200);
+        }
+        return BigDecimal.ZERO;
+    }
+
+    @Override
     public List<Carro> listarCarrosEmOrdemAlfabetica(){
         return veiculoRepository.listarCarrosEmOrdemAlfabetica();
     }
-    @Override
-    public List<Moto> listarMotosEmOrdemAlfabetica(){
-        return veiculoRepository.listarMotosEmOrdemAlfabetica();
-    }
+
 }

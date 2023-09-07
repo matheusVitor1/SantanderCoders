@@ -1,7 +1,6 @@
 package modulo03.ProjetoLocadora.Services.Contracts;
 
 import modulo03.ProjetoLocadora.Entidades.Veiculos.Carro;
-import modulo03.ProjetoLocadora.Entidades.Veiculos.Moto;
 import modulo03.ProjetoLocadora.Entidades.Veiculos.Veiculo;
 
 
@@ -15,7 +14,7 @@ public interface VeiculoService {
     boolean adicionarVeiculo(Veiculo veiculo);
     boolean removerVeiculo(String placa);
     boolean editarVeiculo(String nome, String modelo, String placa, BigDecimal precoAluguel, String porte);
-
+    BigDecimal definirPrecoDiariaCarro(String placa);
     List<Carro> listarCarrosEmOrdemAlfabetica();
-    List<Moto> listarMotosEmOrdemAlfabetica();
+
 }

@@ -18,10 +18,10 @@ public class ContratoAluguel {
     private Veiculo veiculo;
     private Pessoa cliente;
     private LocalDateTime dataLocacao;
-    private LocalDateTime dataDevolucao = DATA_DEVOLUCAO_NAO_DEFINIDA;
+    private LocalDateTime dataDevolucao;
     private String enderecoDevolucao;
 
-    private BigDecimal valorAPagar = VALOR_NAO_DEFINIDO;
+    private BigDecimal valorAPagar;
 
 
     public ContratoAluguel(Veiculo veiculo, Pessoa cliente, LocalDateTime dataLocacao, LocalDateTime dataDevolucao, String enderecoDevolucao, BigDecimal valorAPagar){
@@ -29,7 +29,7 @@ public class ContratoAluguel {
         this.veiculo = veiculo;
         this.cliente = cliente;
         this.dataLocacao = dataLocacao;
-        this.dataDevolucao = dataDevolucao;
+        this.dataDevolucao = (dataDevolucao != null) ? dataDevolucao : DATA_DEVOLUCAO_NAO_DEFINIDA;
         this.enderecoDevolucao = enderecoDevolucao;
         this.valorAPagar = valorAPagar;
     }

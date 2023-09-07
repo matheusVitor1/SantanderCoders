@@ -10,6 +10,10 @@ public class Carro extends Veiculo {
         this.porte = porte;
     }
 
+    public String getPorte() {
+        return porte;
+    }
+
     public void setPorte(String porte) {
         this.porte = porte;
     }
@@ -20,7 +24,7 @@ public class Carro extends Veiculo {
                 "nome='" + getNome() + '\'' +
                 ", modelo='" + getModelo() + '\'' +
                 ", placa='" + getPlaca() + '\'' +
-                ", precoAluguel=" + getPrecoAluguelPorDia() +
+                ", porte='" + getPorte() + '\'' +
                 ", alugado=" + isAlugado() +
                 '}';
     }
