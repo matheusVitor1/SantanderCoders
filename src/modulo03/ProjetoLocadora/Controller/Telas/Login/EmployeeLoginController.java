@@ -1,4 +1,7 @@
-package modulo03.ProjetoLocadora.Controller;
+package modulo03.ProjetoLocadora.Controller.Telas.Login;
+
+import modulo03.ProjetoLocadora.Controller.Telas.MainController;
+
 import java.util.Scanner;
 
 public class EmployeeLoginController {
@@ -12,7 +15,5 @@ public class EmployeeLoginController {
     }
 
     public void displayEmployeeLogin() {
-        // Implemente a lógica de login de funcionário aqui
     }
 }
-
