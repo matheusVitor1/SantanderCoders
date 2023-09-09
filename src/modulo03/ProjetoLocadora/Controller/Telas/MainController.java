@@ -1,6 +1,6 @@
 package modulo03.ProjetoLocadora.Controller.Telas;
 
-import modulo03.ProjetoLocadora.Controller.Telas.Display.ClientMenuController;
+import modulo03.ProjetoLocadora.Controller.Telas.Display.ClientHomeController;
 import modulo03.ProjetoLocadora.Controller.Telas.Login.EmployeeLoginController;
 import modulo03.ProjetoLocadora.Controller.Telas.Login.PersonRegistrationController;
 import modulo03.ProjetoLocadora.Controller.Telas.Login.ClientLoginController;
@@ -19,7 +19,7 @@ public class MainController {
     public RentalContractServiceImpl rentalContractService;
     public PersonServiceImpl personService;
     public VehicleServiceImpl vehicleService;
-    public ClientMenuController clientMenuController;
+    public ClientHomeController clientHomeController;
     private Scanner scanner;
     private PersonRegistrationController personRegistrationController;
     private ClientLoginController clientLoginController;
@@ -33,7 +33,7 @@ public class MainController {
         this.vehicleService = new VehicleServiceImpl(new VehicleRepository());
         this.clientLoginController = new ClientLoginController(this);
         this.employeeLoginController = new EmployeeLoginController(this);
-        this.clientMenuController = new ClientMenuController(this);
+        this.clientHomeController = new ClientHomeController(this);
         this.personRegistrationController = new PersonRegistrationController(this);
         this.scanner = new Scanner(System.in);
     }

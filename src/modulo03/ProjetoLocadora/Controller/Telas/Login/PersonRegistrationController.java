@@ -29,7 +29,9 @@ public class PersonRegistrationController {
             selectedOption = scanner.nextInt();
             scanner.nextLine();
             handleRegistrationOption(selectedOption);
-        } while (selectedOption != 0);
+        }while (selectedOption != 0);
+
+
     }
 
     private void handleRegistrationOption(int selectedOption) {
@@ -65,7 +67,8 @@ public class PersonRegistrationController {
             pessoa = new IndividualPerson(nome, cpf,endereco,senha);
             mainController.personService.addPerson(pessoa);
             System.out.println("Usuário Cadastrado!");
-            mainController.clientMenuController.showClientMenu(pessoa);
+            mainController.clientHomeController.showClientMenu(pessoa);
+            return;
         }else{
             System.out.println("Cliente já cadastrado!");
         }
@@ -86,11 +89,12 @@ public class PersonRegistrationController {
             pessoa = new LegalPerson(nome, cpf,endereco,senha);
             mainController.personService.addPerson(pessoa);
             System.out.println("Usuário Cadastrado!");
-            mainController.clientMenuController.showClientMenu(pessoa);
+            mainController.clientHomeController.showClientMenu(pessoa);
+            return;
         }else{
             System.out.println("Cliente já cadastrado!");
         }
-
+        return;
     }
 
     public void displayEmployeeRegistration(){

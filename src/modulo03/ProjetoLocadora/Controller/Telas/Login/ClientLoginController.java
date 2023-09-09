@@ -60,14 +60,14 @@ public class ClientLoginController {
         System.out.println("Digite sua senha: ");
         String senha = scanner.nextLine();
         validatePerson(identidade, senha);
+
     }
 
     private void validatePerson(String identidade, String senha) {
         Person pessoa = mainController.personService.findPerson(identidade);
         if (pessoa != null) {
             if (pessoa.getPassword().equals(senha)) {
-                System.out.println("Bem-vindo, " + pessoa.getName());
-                mainController.clientMenuController.showClientMenu(pessoa);
+                mainController.clientHomeController.showClientMenu(pessoa);
             } else {
                 System.out.println("Senha incorreta. Tente novamente.");
             }
