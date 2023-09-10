@@ -21,12 +21,13 @@ public class Car extends Vehicle {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "name='" + getName() + '\'' +
-                ", model='" + getModel() + '\'' +
-                ", licensePlate='" + getLicensePlate() + '\'' +
-                ", size='" + getSize() + '\'' +
-                ", rented=" + isRented() +
+        return "Carro{" +
+                "nome='" + getName() + '\'' +
+                ", Modelo='" + getModel() + '\'' +
+                ", Placa='" + getLicensePlate() + '\'' +
+                ", Tamanho='" + getSize() + '\'' +
+                ", Valor por dia de aluguel ='R$ " + getRentalPricePerDay() + '\'' +
+                ", Está Alugado? " + isRented() +
                 '}';
     }
 }

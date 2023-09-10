@@ -51,7 +51,7 @@ public class ClientLoginController {
         String identidade = scanner.nextLine();
         System.out.println("Digite sua senha: ");
         String senha = scanner.nextLine();
-        validatePerson(identidade, senha);
+        validateClient(identidade, senha);
     }
     private void legalPersonLogin(){
         System.out.println("==== Login ====");
@@ -59,11 +59,11 @@ public class ClientLoginController {
         String identidade = scanner.nextLine();
         System.out.println("Digite sua senha: ");
         String senha = scanner.nextLine();
-        validatePerson(identidade, senha);
+        validateClient(identidade, senha);
 
     }
 
-    private void validatePerson(String identidade, String senha) {
+    private void validateClient(String identidade, String senha) {
         Person pessoa = mainController.personService.findPerson(identidade);
         if (pessoa != null) {
             if (pessoa.getPassword().equals(senha)) {

@@ -1,5 +1,8 @@
 package modulo03.ProjetoLocadora.Services.impl;
 
+import modulo03.ProjetoLocadora.Entidades.Pessoas.Employee;
+import modulo03.ProjetoLocadora.Entidades.Pessoas.IndividualPerson;
+import modulo03.ProjetoLocadora.Entidades.Pessoas.LegalPerson;
 import modulo03.ProjetoLocadora.Entidades.Pessoas.Person;
 import modulo03.ProjetoLocadora.Repositories.PersonRepository;
 import modulo03.ProjetoLocadora.Services.Contracts.PersonService;
@@ -20,7 +23,13 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public boolean addPerson(Person person) {
         String identity = person.getIdentity();
-        if (findPerson(identity) == null) {
+        if (!(findPerson(identity) instanceof IndividualPerson)) {
+            personRepository.savePerson(person);
+            return true;
+        } else if (!(findPerson(identity) instanceof LegalPerson)){
+            personRepository.savePerson(person);
+            return true;
+        } else if (!(findPerson(identity) instanceof Employee)){
             personRepository.savePerson(person);
             return true;
         }

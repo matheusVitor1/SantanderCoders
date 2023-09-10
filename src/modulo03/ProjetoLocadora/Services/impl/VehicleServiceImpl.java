@@ -49,20 +49,21 @@ public class VehicleServiceImpl implements VehicleService {
     public boolean editVehicle(String name, String model, String licensePlate, BigDecimal rentalPrice, String size) {
         if (findVehicleByLicense(licensePlate) != null) {
             return vehicleRepository.editVehicle(name, model, licensePlate, rentalPrice, size);
+
         }
         return false;
     }
 
     @Override
     public BigDecimal setDailyRentalPriceForCar(String size) {
-        if (size.equalsIgnoreCase("small")) {
+        if (size.equalsIgnoreCase("pequeno")) {
             return BigDecimal.valueOf(100);
-        } else if (size.equalsIgnoreCase("medium")) {
+        } else if (size.equalsIgnoreCase("medio")) {
             return BigDecimal.valueOf(150);
         } else if (size.equalsIgnoreCase("suv")) {
             return BigDecimal.valueOf(200);
         }
-        return BigDecimal.ZERO;
+        return BigDecimal.valueOf(175);
     }
 
     @Override

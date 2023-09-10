@@ -1,8 +1,8 @@
 package modulo03.ProjetoLocadora.Controller.Telas;
 
 import modulo03.ProjetoLocadora.Controller.Telas.Display.ClientHomeController;
+import modulo03.ProjetoLocadora.Controller.Telas.Display.EmployeeHomeController;
 import modulo03.ProjetoLocadora.Controller.Telas.Login.EmployeeLoginController;
-import modulo03.ProjetoLocadora.Controller.Telas.Login.PersonRegistrationController;
 import modulo03.ProjetoLocadora.Controller.Telas.Login.ClientLoginController;
 import modulo03.ProjetoLocadora.Repositories.PersonRepository;
 import modulo03.ProjetoLocadora.Repositories.RentalContractRepository;
@@ -10,6 +10,7 @@ import modulo03.ProjetoLocadora.Repositories.VehicleRepository;
 import modulo03.ProjetoLocadora.Services.impl.PersonServiceImpl;
 import modulo03.ProjetoLocadora.Services.impl.RentalContractServiceImpl;
 import modulo03.ProjetoLocadora.Services.impl.VehicleServiceImpl;
+import modulo03.ProjetoLocadora.Controller.Telas.Display.UserRegistrationController;
 
 
 import java.util.Scanner;
@@ -20,8 +21,9 @@ public class MainController {
     public PersonServiceImpl personService;
     public VehicleServiceImpl vehicleService;
     public ClientHomeController clientHomeController;
+    public EmployeeHomeController employeeHomeController;
     private Scanner scanner;
-    private PersonRegistrationController personRegistrationController;
+    private UserRegistrationController userRegistrationController;
     private ClientLoginController clientLoginController;
     private EmployeeLoginController employeeLoginController;
 
@@ -34,7 +36,9 @@ public class MainController {
         this.clientLoginController = new ClientLoginController(this);
         this.employeeLoginController = new EmployeeLoginController(this);
         this.clientHomeController = new ClientHomeController(this);
-        this.personRegistrationController = new PersonRegistrationController(this);
+        this.userRegistrationController = new UserRegistrationController(this);
+        this.employeeLoginController = new EmployeeLoginController(this);
+        this.employeeHomeController = new EmployeeHomeController(this);
         this.scanner = new Scanner(System.in);
     }
 
@@ -53,8 +57,8 @@ public class MainController {
         } while (selectedOption != 0);
     }
 
-    private void handleMainMenuOption(int option) {
-        switch (option) {
+    private void handleMainMenuOption(int selectedOption) {
+        switch (selectedOption) {
             case 1:
                 clientLoginController.displayClientLogin();
                 break;
@@ -62,7 +66,7 @@ public class MainController {
                 employeeLoginController.displayEmployeeLogin();
                 break;
             case 3:
-                personRegistrationController.displayRegistration();
+                userRegistrationController.displayUserRegistration();
                 break;
             case 0:
                 System.out.println("Saindo do programa.");

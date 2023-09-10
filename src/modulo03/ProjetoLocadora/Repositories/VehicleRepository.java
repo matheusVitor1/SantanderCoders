@@ -1,14 +1,16 @@
 package modulo03.ProjetoLocadora.Repositories;
+
 import modulo03.ProjetoLocadora.Entidades.Veiculos.Car;
 import modulo03.ProjetoLocadora.Entidades.Veiculos.Vehicle;
+
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.Collections;
 
 public class VehicleRepository {
 
-    private List<Vehicle> vehicleRepository;
-    private List<Car> carRepository;
+    private final List<Vehicle> vehicleRepository;
+    private final List<Car> carRepository;
 
     public VehicleRepository() {
         this.vehicleRepository = new ArrayList<>();
@@ -37,7 +39,7 @@ public class VehicleRepository {
 
     public Vehicle findVehicleByName(String name) {
         for (Vehicle vehicle : vehicleRepository) {
-            if (vehicle.getName().equalsIgnoreCase(name)) {
+            if (vehicle.getName().equalsIgnoreCase(name)|| vehicle.getModel().equalsIgnoreCase(name)) {
                 return vehicle;
             }
         }
@@ -55,21 +57,15 @@ public class VehicleRepository {
 
     public boolean editVehicle(String name, String model, String licensePlate, BigDecimal rentalPrice, String size) {
         Vehicle vehicle = findVehicleByLicensePlate(licensePlate);
-
-        if (vehicle != null) {
-            vehicle.setName(name);
-            vehicle.setModel(model);
-            vehicle.setLicensePlate(licensePlate);
-            vehicle.setRentalPricePerDay(rentalPrice);
-            if (vehicle instanceof Car) {
-                Car car = (Car) vehicle;
-                car.setSize(size);
-            }
-
-            return true;
+        vehicle.setName(name);
+        vehicle.setModel(model);
+        vehicle.setLicensePlate(licensePlate);
+        vehicle.setRentalPricePerDay(rentalPrice);
+        if (vehicle instanceof Car car) {
+            car.setSize(size);
         }
+        return true;
 
-        return false;
     }
 
     public boolean editVehicleAvailability(String licensePlate, boolean isRented) {

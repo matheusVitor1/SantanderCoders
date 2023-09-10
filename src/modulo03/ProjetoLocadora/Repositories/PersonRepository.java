@@ -1,11 +1,12 @@
 package modulo03.ProjetoLocadora.Repositories;
+
 import modulo03.ProjetoLocadora.Entidades.Pessoas.Person;
 
 
 import java.util.*;
 
 public class PersonRepository {
-    private List<Person> people;
+    private final List<Person> people;
 
     public PersonRepository() {
         this.people = new ArrayList<>();
@@ -30,11 +31,10 @@ public class PersonRepository {
 
     public boolean editPerson(String name, String identity, String address) {
         Person person = findPersonByIdentity(identity);
-        if (person != null) {
-            person.setName(name);
-            person.setAddress(address);
-            return true;
-        }
-        return false;
+
+        person.setName(name);
+        person.setAddress(address);
+        return true;
+
     }
 }
