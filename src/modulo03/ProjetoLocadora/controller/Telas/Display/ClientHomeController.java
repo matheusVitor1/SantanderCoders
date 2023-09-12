@@ -1,13 +1,17 @@
 package modulo03.ProjetoLocadora.controller.Telas.Display;
 import modulo03.ProjetoLocadora.controller.Telas.MainController;
 import modulo03.ProjetoLocadora.models.Locadora.RentalContract;
+import modulo03.ProjetoLocadora.models.Pessoas.IndividualPerson;
+import modulo03.ProjetoLocadora.models.Pessoas.LegalPerson;
 import modulo03.ProjetoLocadora.models.Pessoas.Person;
+import modulo03.ProjetoLocadora.models.Veiculos.Car;
 import modulo03.ProjetoLocadora.models.Veiculos.Vehicle;
 
 import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.DoubleToIntFunction;
 
@@ -45,7 +49,7 @@ public class ClientHomeController {
                 searchCarByName();
                 break;
             case 3:
-                performRent(pessoa);
+                generateRent(pessoa);
                 break;
             case 4:
                 displayClientContracts(pessoa);
@@ -62,7 +66,11 @@ public class ClientHomeController {
     }
 
     private void showListOfCars(){
-        System.out.println(mainController.vehicleService.listCarsInAlphabeticalOrder());
+        List<Car> carros = mainController.vehicleService.listCarsInAlphabeticalOrder();
+
+        for (Car carro : carros) {
+            System.out.println(carro);
+        }
     }
 
     private void searchCarByName(){
@@ -76,12 +84,12 @@ public class ClientHomeController {
 
     }
 
-    private void performRent(Person pessoa){
+    private void generateRent(Person pessoa) {
         System.out.println("Digite a placa do carro que deseja alugar: ");
         String licensePlate = scanner.nextLine();
         Vehicle vehicle = mainController.vehicleService.findVehicleByLicense(licensePlate);
 
-        if (vehicle != null) {
+        if (vehicle != null && !vehicle.isRented()) {
             LocalDateTime rentalDate = LocalDateTime.now();
 
             System.out.println("Qual tipo de contrato deseja? 1. Com data de devolução definida | 2. Com data de devolução indeterminada");
@@ -106,7 +114,7 @@ public class ClientHomeController {
 
             String returnAddress = "";
 
-            System.out.println("Em qual unidade deseja Buscar e entregar o Veículo? 1. Unidade 01, 2. Unidade 02, 3. Unidade 03");
+            System.out.println("Em qual unidade deseja buscar e entregar o Veículo? 1. Unidade 01, 2. Unidade 02, 3. Unidade 03");
             int selectedOptionUnidade = scanner.nextInt();
 
             if (selectedOptionUnidade == 1) {
@@ -117,28 +125,52 @@ public class ClientHomeController {
                 returnAddress = "Unidade 03";
             }
 
-            if (mainController.rentalContractService.createRentalContract(vehicle, pessoa, rentalDate, returnDate, returnAddress)) {
+            RentalContract contract = new RentalContract(vehicle, pessoa, rentalDate, returnDate, returnAddress, vehicle.getRentalPricePerDay());
+
+            if (mainController.rentalContractService.add(contract)) {
                 System.out.println("Contrato Criado");
             } else {
-                System.out.println("Operação cancelada, voltando ao menu...");
-                showClientMenu(pessoa);
+                System.out.println("Erro ao criar o contrato. Verifique se o veículo está disponível.");
             }
         } else {
-            System.out.println("Veículo não encontrado");
+            System.out.println("Veículo não encontrado ou já está alugado.");
         }
     }
 
-    private void displayClientContracts(Person person){
-        System.out.println(mainController.rentalContractService.findRentalByCustomer(person.getIdentity()));
+
+    private void displayClientContracts(Person person) {
+        List<RentalContract> contracts = mainController.rentalContractService.findRentalByCustomer(person.getIdentity());
+        System.out.println("==== Seus Pedidos ====");
+        if (contracts != null && !contracts.isEmpty()) {
+            for (RentalContract contract : contracts) {
+                System.out.println(contract);
+            }
+        } else {
+            System.out.println("Nenhum contrato de aluguel encontrado para este cliente.");
+        }
     }
 
-    private void editClient (Person person){
-        System.out.println("Digite seu nome");
+
+    private void editClient(Person person) {
+        System.out.println("Digite seu novo nome");
         String nome = scanner.nextLine();
-        System.out.println("Digite seu endereço");
+        System.out.println("Digite seu novo endereço");
         String address = scanner.nextLine();
-        mainController.personService.editPerson(nome, person.getIdentity(), address);
+
+        if (person instanceof IndividualPerson) {
+            IndividualPerson individualPerson = (IndividualPerson) person;
+            individualPerson.setName(nome);
+            individualPerson.setAddress(address);
+
+        } else if (person instanceof LegalPerson) {
+            LegalPerson legalPerson = (LegalPerson) person;
+            legalPerson.setName(nome);
+            legalPerson.setAddress(address);
+
+        }
+        mainController.personService.edit(person);
     }
+
 
 
 

@@ -55,14 +55,13 @@ public class VehicleRepository {
         return null;
     }
 
-    public boolean editVehicle(String name, String model, String licensePlate, BigDecimal rentalPrice, String size) {
-        Vehicle vehicle = findVehicleByLicensePlate(licensePlate);
-        vehicle.setName(name);
-        vehicle.setModel(model);
-        vehicle.setLicensePlate(licensePlate);
-        vehicle.setRentalPricePerDay(rentalPrice);
+    public boolean editVehicle(Vehicle vehicle) {
+        vehicle.setName(vehicle.getName());
+        vehicle.setModel(vehicle.getModel());
+        vehicle.setLicensePlate(vehicle.getLicensePlate());
+        vehicle.setRentalPricePerDay(vehicle.getRentalPricePerDay());
         if (vehicle instanceof Car car) {
-            car.setSize(size);
+            car.setSize(((Car) vehicle).getSize());
         }
         return true;
 

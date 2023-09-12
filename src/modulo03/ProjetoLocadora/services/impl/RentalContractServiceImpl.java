@@ -5,61 +5,42 @@ import modulo03.ProjetoLocadora.models.Pessoas.IndividualPerson;
 import modulo03.ProjetoLocadora.models.Pessoas.Person;
 import modulo03.ProjetoLocadora.models.Veiculos.Vehicle;
 import modulo03.ProjetoLocadora.repositories.RentalContractRepository;
-import modulo03.ProjetoLocadora.services.Contracts.RentalContractService;
+import modulo03.ProjetoLocadora.repositories.VehicleRepository;
+import modulo03.ProjetoLocadora.services.Contracts.CrudService;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class RentalContractServiceImpl implements RentalContractService {
+public class RentalContractServiceImpl  implements CrudService<RentalContract> {
 
     private RentalContractRepository rentalContractRepository;
+    private VehicleRepository vehicleRepository;
 
-    public RentalContractServiceImpl(RentalContractRepository rentalContractRepository) {
+    public RentalContractServiceImpl(RentalContractRepository rentalContractRepository, VehicleRepository vehicleRepository) {
         this.rentalContractRepository = rentalContractRepository;
-    }
-    @Override
-    public RentalContract findRentalByCustomer(String identity) {
-        return rentalContractRepository.findRentalByIdentity(identity);
-    }
-
-
-    public RentalContract findRentalByProtocol(int orderNumber) {
-        return rentalContractRepository.findRentalByProtocol(orderNumber);
+        this.vehicleRepository = vehicleRepository;
     }
 
     @Override
-    public boolean createRentalContract(Vehicle vehicle, Person customer, LocalDateTime rentalDate, LocalDateTime returnDate, String returnAddress) {
+    public boolean add(RentalContract contract) {
+        LocalDateTime returnDate = contract.getReturnDate();
         if (returnDate == null) {
             returnDate = RentalContract.UNDEFINED_RETURN_DATE;
         }
+        Vehicle vehicle = vehicleRepository.findVehicleByLicensePlate(contract.getVehicle().getLicensePlate());
 
-        BigDecimal amountToPay = calculateRentalValue(rentalDate, returnDate, vehicle, customer);
+        BigDecimal amountToPay = calculateRentalValue(contract.getRentalDate(), returnDate, contract.getVehicle(), contract.getCustomer());
 
-        RentalContract rentalContract = new RentalContract(vehicle, customer, rentalDate, returnDate, returnAddress, amountToPay);
+        contract.setAmountToPay(amountToPay);
 
-        if (validateContract(rentalContract)) {
-            rentalContractRepository.saveRentalRecord(rentalContract);
-            vehicle.setRented(true);
+        if (validateContract(contract)) {
+            rentalContractRepository.saveRentalRecord(contract);
+            contract.getVehicle().setRented(true);
             return true;
         }
         return false;
-    }
-
-    @Override
-    public boolean validateContract(RentalContract contract) {
-        if (contract.getReturnDate() == RentalContract.UNDEFINED_RETURN_DATE){
-            return true;
-        }
-
-        if (contract.getRentalDate().isAfter(contract.getReturnDate())) {
-            System.out.println("Data de devolução não pode ser anterior à data de locação.");
-            return false;
-        } else if (contract.getVehicle().isRented()) {
-            System.out.println("Veículo não está disponível para aluguel!");
-            return false;
-        }
-        return true;
     }
 
     public boolean returnVehicleForIndefiniteContract(RentalContract contract, LocalDateTime returnDate) {
@@ -74,8 +55,34 @@ public class RentalContractServiceImpl implements RentalContractService {
         return true;
     }
 
+    public boolean validateContract(RentalContract contract) {
+        if (contract.getReturnDate() == RentalContract.UNDEFINED_RETURN_DATE) {
+            return true;
+        }
 
-    @Override
+        LocalDateTime rentalDate = contract.getRentalDate();
+        LocalDateTime returnDate = contract.getReturnDate();
+        Vehicle vehicle = contract.getVehicle();
+
+        for (RentalContract existingContract : rentalContractRepository.getAllRentalContracts()) {
+            if (existingContract.getVehicle().equals(vehicle)) {
+                LocalDateTime existingRentalDate = existingContract.getRentalDate();
+                LocalDateTime existingReturnDate = existingContract.getReturnDate();
+
+
+                if ((rentalDate.isAfter(existingRentalDate) && rentalDate.isBefore(existingReturnDate)) ||
+                        (returnDate.isAfter(existingRentalDate) && returnDate.isBefore(existingReturnDate)) ||
+                        (rentalDate.isBefore(existingRentalDate) && returnDate.isAfter(existingReturnDate))) {
+                    System.out.println("Veículo não está disponível para aluguel no período desejado!");
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
     public BigDecimal calculateRentalValue(LocalDateTime rentalDate, LocalDateTime returnDate, Vehicle vehicle, Person person) {
         if (returnDate.equals(RentalContract.UNDEFINED_RETURN_DATE)) {
             return BigDecimal.ZERO;
@@ -110,7 +117,23 @@ public class RentalContractServiceImpl implements RentalContractService {
         return dailyRentals;
     }
 
+    public List<RentalContract> findRentalByCustomer(String identity) {
+        return rentalContractRepository.findRentalByIdentity(identity);
+    }
 
+    public RentalContract findRentalByProtocol(int orderNumber) {
+        return rentalContractRepository.findRentalByProtocol(orderNumber);
+    }
+
+    @Override
+    public boolean remove(RentalContract object) {
+        return false;
+    }
+
+    @Override
+    public boolean edit(RentalContract object) {
+        return false;
+    }
 
 
 }

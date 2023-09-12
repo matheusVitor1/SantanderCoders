@@ -22,8 +22,8 @@ public class RentalContractRepository {
         this.rentalRecordsRepository.remove(obj);
     }
 
-    public List<RentalContract> listRentalRecords() {
-        return Collections.unmodifiableList(rentalRecordsRepository);
+    public List<RentalContract> getAllRentalContracts() {
+        return new ArrayList<>(rentalRecordsRepository);
     }
 
     public RentalContract findRentalByProtocol(int oderNumbere) {
@@ -35,13 +35,18 @@ public class RentalContractRepository {
         return null;
     }
 
-    public RentalContract findRentalByIdentity(String customerCpf) {
+    public List<RentalContract> findRentalByIdentity(String customerCpf) {
+        List<RentalContract> matchingContracts = new ArrayList<>();
+
         for (RentalContract record : rentalRecordsRepository) {
             if (record.getCustomer().getIdentity().equalsIgnoreCase(customerCpf)) {
-                return record;
+                matchingContracts.add(record);
             }
         }
-        return null;
+
+        return matchingContracts.isEmpty() ? null : matchingContracts;
     }
+
+
 }
 

@@ -30,7 +30,7 @@ public class MainController {
 
 
     public MainController() {
-        this.rentalContractService = new RentalContractServiceImpl(new RentalContractRepository());
+        this.rentalContractService = new RentalContractServiceImpl(new RentalContractRepository(), new VehicleRepository());
         this.personService = new PersonServiceImpl(new PersonRepository());
         this.vehicleService = new VehicleServiceImpl(new VehicleRepository());
         this.clientLoginController = new ClientLoginController(this);

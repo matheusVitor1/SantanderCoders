@@ -67,7 +67,7 @@ public class UserRegistrationController {
         Person pessoa = new IndividualPerson(nome, cpf, endereco, senha);
 
 
-        if (mainController.personService.addPerson(pessoa)) {
+        if (mainController.personService.add(pessoa)) {
             System.out.println("Usuário Cadastrado com Sucesso!");
             mainController.clientHomeController.showClientMenu(pessoa);
         } else {
@@ -88,7 +88,7 @@ public class UserRegistrationController {
         String senha = scanner.nextLine();
         Person pessoa = new LegalPerson(nome, cpf, endereco, senha);
 
-        if (mainController.personService.addPerson(pessoa)) {
+        if (mainController.personService.add(pessoa)) {
             System.out.println("Usuário Cadastrado com Sucesso!");
             mainController.clientHomeController.showClientMenu(pessoa);
         } else {
@@ -109,7 +109,7 @@ public class UserRegistrationController {
         String senha = scanner.nextLine();
         Person pessoa = new Employee(nome, identidade, endereco, senha);
 
-        if (mainController.personService.addPerson(pessoa)) {
+        if (mainController.personService.add(pessoa)) {
             System.out.println("Usuário Cadastrado com Sucesso!");
             mainController.employeeHomeController.showEmployeeMenu(pessoa);
         } else {

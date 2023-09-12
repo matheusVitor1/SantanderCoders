@@ -29,11 +29,11 @@ public class PersonRepository {
         return null;
     }
 
-    public boolean editPerson(String name, String identity, String address) {
-        Person person = findPersonByIdentity(identity);
+    public boolean editPerson(Person pessoa) {
+        Person person = findPersonByIdentity(pessoa.getIdentity());
 
-        person.setName(name);
-        person.setAddress(address);
+        person.setName(pessoa.getName());
+        person.setAddress(pessoa.getAddress());
         return true;
 
     }

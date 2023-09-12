@@ -1,35 +1,24 @@
 package modulo03.ProjetoLocadora.services.impl;
 
-import modulo03.ProjetoLocadora.models.Pessoas.Employee;
-import modulo03.ProjetoLocadora.models.Pessoas.IndividualPerson;
-import modulo03.ProjetoLocadora.models.Pessoas.LegalPerson;
 import modulo03.ProjetoLocadora.models.Pessoas.Person;
 import modulo03.ProjetoLocadora.repositories.PersonRepository;
-import modulo03.ProjetoLocadora.services.Contracts.PersonService;
+import modulo03.ProjetoLocadora.services.Contracts.CrudService;
 
 
-public class PersonServiceImpl implements PersonService {
+public class PersonServiceImpl implements CrudService<Person> {
     private PersonRepository personRepository;
 
     public PersonServiceImpl(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
-    @Override
-    public Person findPerson(String identity) {
-        return personRepository.findPersonByIdentity(identity);
-    }
+
 
     @Override
-    public boolean addPerson(Person person) {
+    public boolean add(Person person) {
         String identity = person.getIdentity();
-        if (!(findPerson(identity) instanceof IndividualPerson)) {
-            personRepository.savePerson(person);
-            return true;
-        } else if (!(findPerson(identity) instanceof LegalPerson)){
-            personRepository.savePerson(person);
-            return true;
-        } else if (!(findPerson(identity) instanceof Employee)){
+        Person existingPerson = findPerson(identity);
+        if (existingPerson == null || !person.getClass().equals(existingPerson.getClass())) {
             personRepository.savePerson(person);
             return true;
         }
@@ -37,8 +26,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public boolean removePerson(String identity) {
-        Person person = findPerson(identity);
+    public boolean remove(Person pessoa) {
+        Person person = findPerson(pessoa.getIdentity());
         if (person != null) {
             personRepository.removePerson(person);
             return true;
@@ -47,13 +36,16 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public boolean editPerson(String name, String identity, String address) {
-        Person person = findPerson(identity);
-        if (person != null) {
-            person.setName(name);
-            person.setAddress(address);
+    public boolean edit(Person person) {
+
+        if (findPerson(person.getIdentity()) != null) {
+            personRepository.editPerson(person);
             return true;
         }
         return false;
+    }
+
+    public Person findPerson(String identity) {
+        return personRepository.findPersonByIdentity(identity);
     }
 }

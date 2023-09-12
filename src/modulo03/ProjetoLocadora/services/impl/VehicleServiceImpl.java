@@ -2,12 +2,12 @@ package modulo03.ProjetoLocadora.services.impl;
 import modulo03.ProjetoLocadora.models.Veiculos.Car;
 import modulo03.ProjetoLocadora.models.Veiculos.Vehicle;
 import modulo03.ProjetoLocadora.repositories.VehicleRepository;
-import modulo03.ProjetoLocadora.services.Contracts.VehicleService;
+import modulo03.ProjetoLocadora.services.Contracts.CrudService;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class VehicleServiceImpl implements VehicleService {
+public class VehicleServiceImpl implements CrudService<Vehicle> {
 
     private VehicleRepository vehicleRepository;
 
@@ -15,18 +15,9 @@ public class VehicleServiceImpl implements VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
-    @Override
-    public Vehicle findVehicleByName(String name) {
-        return vehicleRepository.findVehicleByName(name);
-    }
 
     @Override
-    public Vehicle findVehicleByLicense(String licensePlate) {
-        return vehicleRepository.findVehicleByLicensePlate(licensePlate);
-    }
-
-    @Override
-    public boolean addVehicle(Vehicle vehicle) {
+    public boolean add(Vehicle vehicle) {
         String licensePlate = vehicle.getLicensePlate();
         if (findVehicleByLicense(licensePlate) == null) {
             vehicleRepository.saveVehicle(vehicle);
@@ -35,9 +26,9 @@ public class VehicleServiceImpl implements VehicleService {
         return false;
     }
 
-    @Override
-    public boolean removeVehicle(String licensePlate) {
-        Vehicle vehicle = findVehicleByLicense(licensePlate);
+
+    public boolean remove(Vehicle vehicle) {
+
         if (vehicle != null) {
             vehicleRepository.removeVehicle(vehicle);
             return true;
@@ -46,15 +37,14 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public boolean editVehicle(String name, String model, String licensePlate, BigDecimal rentalPrice, String size) {
-        if (findVehicleByLicense(licensePlate) != null) {
-            return vehicleRepository.editVehicle(name, model, licensePlate, rentalPrice, size);
-
+    public boolean edit(Vehicle vehicle) {
+        if (findVehicleByLicense(vehicle.getLicensePlate()) != null) {
+            return vehicleRepository.editVehicle(vehicle);
         }
         return false;
     }
 
-    @Override
+
     public BigDecimal setDailyRentalPriceForCar(String size) {
         if (size.equalsIgnoreCase("pequeno")) {
             return BigDecimal.valueOf(100);
@@ -66,8 +56,15 @@ public class VehicleServiceImpl implements VehicleService {
         return BigDecimal.valueOf(175);
     }
 
-    @Override
     public List<Car> listCarsInAlphabeticalOrder() {
         return vehicleRepository.listCarsInAlphabeticalOrder();
+    }
+
+    public Vehicle findVehicleByName(String name) {
+        return vehicleRepository.findVehicleByName(name);
+    }
+
+    public Vehicle findVehicleByLicense(String licensePlate) {
+        return vehicleRepository.findVehicleByLicensePlate(licensePlate);
     }
 }

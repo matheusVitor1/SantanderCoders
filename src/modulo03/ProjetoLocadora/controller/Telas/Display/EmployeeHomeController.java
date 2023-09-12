@@ -2,6 +2,8 @@ package modulo03.ProjetoLocadora.controller.Telas.Display;
 
 import modulo03.ProjetoLocadora.controller.Telas.MainController;
 import modulo03.ProjetoLocadora.models.Locadora.RentalContract;
+import modulo03.ProjetoLocadora.models.Pessoas.IndividualPerson;
+import modulo03.ProjetoLocadora.models.Pessoas.LegalPerson;
 import modulo03.ProjetoLocadora.models.Pessoas.Person;
 import modulo03.ProjetoLocadora.models.Veiculos.Car;
 import modulo03.ProjetoLocadora.models.Veiculos.Vehicle;
@@ -43,7 +45,7 @@ public class EmployeeHomeController {
 
                 break;
             case 2:
-
+                editCar();
                 break;
             case 3:
                 registerVehicleReturn();
@@ -86,7 +88,7 @@ public class EmployeeHomeController {
         BigDecimal rentalPrice = mainController.vehicleService.setDailyRentalPriceForCar(sizeOption);
         Vehicle  vehicle = new Car(marca, model, licensePlate, rentalPrice, sizeOption, false);
 
-        if(mainController.vehicleService.addVehicle(vehicle)){
+        if(mainController.vehicleService.add(vehicle)){
             System.out.println("Veiculo adicionado com sucesso");
         } else {
             System.out.println("Veiculo já cadastrado");
@@ -115,6 +117,27 @@ public class EmployeeHomeController {
             }
         }
 
+    }
+
+    private void editCar() {
+        System.out.println("Qual a Placa? ");
+        String licensePlate = scanner.nextLine();
+        System.out.println("Qual o modelo do carro? ");
+        String nome = scanner.nextLine();
+        System.out.println("Qual o modelo? ");
+        String model = scanner.nextLine();
+
+
+        Vehicle vehicle = mainController.vehicleService.findVehicleByLicense(licensePlate);
+        vehicle.setName(nome);
+        vehicle.setModel(model);
+        vehicle.setLicensePlate(licensePlate);
+
+        if(mainController.vehicleService.edit(vehicle)){
+            System.out.println("Veículo editado com Sucesso");
+        } else {
+            System.out.println("Falha ao Editar");
+        }
     }
 
 }
